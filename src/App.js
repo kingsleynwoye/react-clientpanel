@@ -7,7 +7,9 @@ import store from './store';
 import AppNavbar from './components/Layout/AppNavbar';
 import Dashboard from './components/Layout/Dashboard';
 import AddClient from './components/Clients/AddClient';
-
+import ClientDetail from './components/Clients/ClientDetail';
+import EditClient from './components/Clients/EditClient';
+import Login from './components/Auth/Login';
 import './App.css';
 
 class App extends Component {
@@ -26,9 +28,27 @@ class App extends Component {
                 </Route>
                 <Route
                   exact
-                  path="/clients/add"
+                  path="/client/add"
                 >
                   <AddClient />
+                </Route>
+                <Route
+                  exact
+                  path='/client/:id'
+                >
+                  <ClientDetail />
+                </Route>
+                <Route
+                  exact
+                  path="/client/edit/:id"
+                >
+                  <EditClient />
+                </Route>
+                <Route
+                  exact
+                  path="/Login"
+                >
+                  <Login />
                 </Route>
               </Switch>
             </div>
