@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { UserIsAuthenticated, UserIsNotAuthenticated } from './helpers/auth';
 
 import { Provider } from 'react-redux';
 import store from './store';
 
-import AppNavbar from './components/Layout/AppNavbar';
-import Dashboard from './components/Layout/Dashboard';
-import AddClient from './components/Clients/AddClient';
-import ClientDetail from './components/Clients/ClientDetail';
-import EditClient from './components/Clients/EditClient';
-import Login from './components/Auth/Login';
+import AppNavbar from './components/layout/AppNavbar';
+import Dashboard from './components/layout/Dashboard';
+import AddClient from './components/clients/AddClient';
+import EditClient from './components/clients/EditClient';
+import ClientDetails from './components/clients/ClientDetails';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import Settings from './components/settings/Settings';
+
 import './App.css';
 
 class App extends Component {
@@ -21,35 +25,41 @@ class App extends Component {
             <AppNavbar />
             <div className="container">
               <Switch>
-                <Route exact
+                <Route
+                  exact
                   path="/"
-                >
-                  <Dashboard />
-                </Route>
+                  component={UserIsAuthenticated(Dashboard)}
+                />
                 <Route
                   exact
                   path="/client/add"
-                >
-                  <AddClient />
-                </Route>
-                <Route
-                  exact
-                  path='/client/:id'
-                >
-                  <ClientDetail />
-                </Route>
+                  component={UserIsAuthenticated(AddClient)}
+                />
                 <Route
                   exact
                   path="/client/edit/:id"
-                >
-                  <EditClient />
-                </Route>
+                  component={UserIsAuthenticated(EditClient)}
+                />
                 <Route
                   exact
-                  path="/Login"
-                >
-                  <Login />
-                </Route>
+                  path="/client/:id"
+                  component={UserIsAuthenticated(ClientDetails)}
+                />
+                <Route
+                  exact
+                  path="/login"
+                  component={UserIsNotAuthenticated(Login)}
+                />
+                <Route
+                  exact
+                  path="/register"
+                  component={UserIsNotAuthenticated(Register)}
+                />
+                <Route
+                  exact
+                  path="/settings"
+                  component={UserIsAuthenticated(Settings)}
+                />
               </Switch>
             </div>
           </div>
